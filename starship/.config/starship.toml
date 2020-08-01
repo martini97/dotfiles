@@ -1,0 +1,20 @@
+add_newline = false
+
+[git_branch]
+style = "underline bold italic red"
+symbol = " "
+
+[character]
+use_symbol_for_status = true
+
+[directory]
+truncate_to_repo = false
+truncation_length = 1
+fish_style_pwd_dir_length = 1
+
+[kubernetes]
+disabled = false
+style = "bold blue"
+
+[package]
+disabled = true

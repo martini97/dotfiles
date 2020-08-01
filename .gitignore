@@ -1,0 +1,8 @@
+/plugged
+/.netrwhist
+/tags
+**/plugged
+zsh/.config/zsh/secrets.zsh
+zsh/.config/zsh/.zcompdump
+zsh/.config/zsh/.zsh_history
+zsh/.config/zsh/.zcompcache

@@ -117,14 +117,6 @@ nnoremap <C-s> :Grep<Space>
 nnoremap <Space>ew :e <C-R>=expand("%:.:h") . "/"<CR>
 nnoremap <Space>ev :vs <C-R>=expand("%:.:h") . "/"<CR>
 nnoremap <Space>es :sp <C-R>=expand("%:.:h") . "/"<CR>
-" Nvim-LSP ------------------------------------- {{{
-nnoremap <silent>gd    <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent>K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent>gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent>gR    <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent>gR    <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent>,o    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent>,w    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 " }}}
 " FZF.vim -------------------------------------- {{{
 nnoremap <silent> <C-b> :Buffers<cr>
@@ -208,10 +200,4 @@ let g:qf_auto_resize = 1
 let g:qf_mapping_ack_style = 1
 " }}}
 
-" Nvim-LSP ------------------------------------- {{{
-lua << END
-require'nvim_lsp'.vimls.setup{}
-require'nvim_lsp'.pyls.setup{}
-require'nvim_lsp'.tsserver.setup{}
-END
 " }}}

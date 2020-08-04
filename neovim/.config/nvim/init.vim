@@ -74,6 +74,7 @@ if executable('rg')
 endif
 set cursorline
 set path+=src/**,static/,config/,head/**,frontend/**
+set errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %m,%-G%.%#
 " }}}
 
 " Statusline ----------------------------------- {{{

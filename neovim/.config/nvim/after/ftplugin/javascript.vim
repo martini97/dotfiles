@@ -16,8 +16,6 @@ if executable('prettier')
 endif
 if executable('eslint')
     setlocal makeprg=eslint\ --fix\ -f\ compact\ %
-    setlocal errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %trror\ -\ %m
-    setlocal errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %tarning\ -\ %m
 endif
 
 setlocal includeexpr=LoadMainNodeModule(v:fname)

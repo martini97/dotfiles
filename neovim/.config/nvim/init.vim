@@ -20,7 +20,6 @@ Plug 'machakann/vim-sandwich'
 Plug 'romainl/vim-qf'
 Plug 'romainl/vim-cool'
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'tpope/vim-fugitive' |
       \ Plug 'tpope/vim-rhubarb'
@@ -122,22 +121,6 @@ nnoremap <silent> <C-b> :Buffers<cr>
 nnoremap <silent> <C-f> :Files<cr>
 nnoremap <silent> <C-_> :BLines<cr>
 " }}}
-" Coc.vim -------------------------------------- {{{
-inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-nnoremap <silent><nowait> <space>a :<C-u>CocList diagnostics<cr>
-nnoremap <silent><nowait> <space>c :<C-u>CocList commands<cr>
-nnoremap <silent><nowait> <space>j :<C-u>CocNext<CR>
-nnoremap <silent><nowait> <space>k :<C-u>CocPrev<CR>
-nnoremap <silent><nowait> <space>o :<C-u>CocList outline<cr>
-nnoremap <space>e :CocCommand explorer --toggle<CR>
-" }}}
 " Fugitive ------------------------------------- {{{
 nnoremap <Space>gs :Gstatus<CR>
 " }}}
@@ -196,33 +179,6 @@ let g:fzf_action = {
 
 " Vim-test ------------------------------------- {{{
 let test#strategy = "asyncrun_background_term"
-" }}}
-
-" Coc.nvim ------------------------------------- {{{
-let g:coc_global_extensions = [
-      \ 'coc-browser',
-      \ 'coc-explorer',
-      \ 'coc-json',
-      \ 'coc-python',
-      \ 'coc-snippets',
-      \ 'coc-syntax',
-      \ 'coc-tag',
-      \ 'coc-tsserver',
-      \ 'coc-vimlsp',
-      \ ]
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 " }}}
 
 " Gutentags ------------------------------------ {{{

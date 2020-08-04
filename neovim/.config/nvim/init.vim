@@ -47,6 +47,7 @@ set hidden
 set incsearch
 set ruler
 set wildmenu
+set wildignore+=*/node_modules/*,*/__pycache__/*
 set expandtab 
 set nowrap
 set hidden
@@ -72,6 +73,7 @@ if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-column\ --smart-case\ --color=never
 endif
 set cursorline
+set path+=src/**,static/,config/,head/**,frontend/**
 " }}}
 
 " Statusline ----------------------------------- {{{

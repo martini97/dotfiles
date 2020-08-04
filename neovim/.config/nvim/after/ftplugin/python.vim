@@ -2,6 +2,7 @@ let $PATH = ".venv/bin:" . $PATH
 
 setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 setlocal errorformat=%f:%l:%c:\ %t%n\ %m
+setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 if executable('black')
     setlocal formatprg=black\ --quiet\ -

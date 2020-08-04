@@ -23,3 +23,4 @@ endif
 setlocal includeexpr=LoadMainNodeModule(v:fname)
 setlocal path=.,src
 setlocal suffixesadd=.js,.jsx
+setlocal omnifunc=v:lua.vim.lsp.omnifunc

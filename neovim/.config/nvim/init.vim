@@ -20,7 +20,12 @@ Plug 'machakann/vim-sandwich'
 Plug 'romainl/vim-qf'
 Plug 'romainl/vim-cool'
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lsp' |
+      \ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } |
+      \ Plug 'Shougo/deoplete-lsp' |
+      \ Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' } |
+      \ Plug 'deoplete-plugins/deoplete-jedi' |
+      \ Plug 'deoplete-plugins/deoplete-tag'
 
 Plug 'tpope/vim-fugitive' |
       \ Plug 'tpope/vim-rhubarb'
@@ -99,6 +104,10 @@ augroup highlight_yank
   autocmd!
   autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
 augroup END
+augroup close_preview
+  autocmd!
+  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
+augroup END
 " }}}
 
 " Commands ------------------------------------- {{{
@@ -117,26 +126,22 @@ nnoremap <C-s> :Grep<Space>
 nnoremap <Space>ew :e <C-R>=expand("%:.:h") . "/"<CR>
 nnoremap <Space>ev :vs <C-R>=expand("%:.:h") . "/"<CR>
 nnoremap <Space>es :sp <C-R>=expand("%:.:h") . "/"<CR>
+" Deoplete ------------------------------------- {{{
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ deoplete#manual_complete()
+inoremap <expr><C-g> deoplete#undo_completion()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+" }}}
 " FZF.vim -------------------------------------- {{{
 nnoremap <silent> <C-b> :Buffers<cr>
 nnoremap <silent> <C-f> :Files<cr>
 nnoremap <silent> <C-_> :BLines<cr>
-" }}}
-" Coc.vim -------------------------------------- {{{
-inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-nnoremap <silent><nowait> <space>a :<C-u>CocList diagnostics<cr>
-nnoremap <silent><nowait> <space>c :<C-u>CocList commands<cr>
-nnoremap <silent><nowait> <space>j :<C-u>CocNext<CR>
-nnoremap <silent><nowait> <space>k :<C-u>CocPrev<CR>
-nnoremap <silent><nowait> <space>o :<C-u>CocList outline<cr>
-nnoremap <space>e :CocCommand explorer --toggle<CR>
 " }}}
 " Fugitive ------------------------------------- {{{
 nnoremap <Space>gs :Gstatus<CR>
@@ -198,33 +203,6 @@ let g:fzf_action = {
 let test#strategy = "asyncrun_background_term"
 " }}}
 
-" Coc.nvim ------------------------------------- {{{
-let g:coc_global_extensions = [
-      \ 'coc-browser',
-      \ 'coc-explorer',
-      \ 'coc-json',
-      \ 'coc-python',
-      \ 'coc-snippets',
-      \ 'coc-syntax',
-      \ 'coc-tag',
-      \ 'coc-tsserver',
-      \ 'coc-vimlsp',
-      \ ]
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-" }}}
-
 " Gutentags ------------------------------------ {{{
 let g:gutentags_modules = ['ctags']
 let g:gutentags_cache_dir = stdpath('cache') . '/tags'
@@ -240,4 +218,17 @@ let g:qf_auto_open_loclist = 1
 let g:qf_shorten_path = 0
 let g:qf_auto_resize = 1
 let g:qf_mapping_ack_style = 1
+" }}}
+
+" Deoplete ------------------------------------- {{{
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#ternjs#types = 1
+let g:deoplete#sources#ternjs#filetypes = [
+      \ 'javascript',
+      \ 'javascript.jsx',
+      \ 'javascriptreact',
+      \ 'typescript',
+      \ 'typescript.jsx',
+      \ 'typescriptreact',
+      \ ]
 " }}}

@@ -101,6 +101,10 @@ augroup highlight_yank
   autocmd!
   autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
 augroup END
+augroup close_preview
+  autocmd!
+  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
+augroup END
 " }}}
 
 " Commands ------------------------------------- {{{

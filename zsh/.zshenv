@@ -1,4 +1,4 @@
-export PATH="/usr/local/sbin:$HOME/bin:$HOME/go/bin:$HOME/.gems/bin:/usr/local/bin:$PATH"
+export PATH="/usr/local/sbin:$HOME/bin:$HOME/go/bin:$HOME/.gems/bin:/usr/local/bin:$PATH:$HOME/.scripts"
 
 export EDITOR=nvim
 export VISUAL=nvim

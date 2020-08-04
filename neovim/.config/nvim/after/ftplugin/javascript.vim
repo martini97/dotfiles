@@ -18,6 +18,12 @@ if executable('eslint')
     setlocal makeprg=eslint\ --fix\ -f\ compact\ %
 endif
 
+" Vim polyglot sets this to a messed up value
+augroup unset_formatexpr
+  autocmd!
+  autocmd BufEnter *.tsx,*.ts,*.jsx,*.js setlocal formatexpr=
+augroup END
+
 setlocal includeexpr=LoadMainNodeModule(v:fname)
 setlocal path=.,src
 setlocal suffixesadd=.js,.jsx

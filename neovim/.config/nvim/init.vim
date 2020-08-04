@@ -22,7 +22,10 @@ Plug 'romainl/vim-cool'
 
 Plug 'neovim/nvim-lsp' |
       \ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } |
-      \ Plug 'Shougo/deoplete-lsp'
+      \ Plug 'Shougo/deoplete-lsp' |
+      \ Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' } |
+      \ Plug 'deoplete-plugins/deoplete-jedi' |
+      \ Plug 'deoplete-plugins/deoplete-tag'
 
 Plug 'tpope/vim-fugitive' |
       \ Plug 'tpope/vim-rhubarb'
@@ -219,4 +222,13 @@ let g:qf_mapping_ack_style = 1
 
 " Deoplete ------------------------------------- {{{
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#ternjs#types = 1
+let g:deoplete#sources#ternjs#filetypes = [
+      \ 'javascript',
+      \ 'javascript.jsx',
+      \ 'javascriptreact',
+      \ 'typescript',
+      \ 'typescript.jsx',
+      \ 'typescriptreact',
+      \ ]
 " }}}

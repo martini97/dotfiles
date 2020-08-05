@@ -1,15 +1,16 @@
+if isdirectory(expand('$WORKON_HOME') . '/neovim/bin')
+  let $PATH = expand('$WORKON_HOME') . '/neovim/bin:' . $PATH
+endif
 let $PATH = ".venv/bin:" . $PATH
 
 setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 setlocal errorformat=%f:%l:%c:\ %t%n\ %m
 setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
-if executable('black')
-    setlocal formatprg=black\ --quiet\ -
-endif
 if executable('flake8')
     setlocal makeprg=flake8\ %:S
 endif
+setlocal formatprg=black\ --quiet\ -
 
 python3 << EOF
 import os

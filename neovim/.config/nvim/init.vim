@@ -114,16 +114,16 @@ augroup END
 " }}}
 
 " Mappings ------------------------------------- {{{
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-cnoremap <C-k> <Up>
-cnoremap <C-j> <Down>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
-nnoremap <Space>x :bn<CR>:bd#<CR>
-nnoremap <Space>ew :e <C-R>=expand("%:.:h") . "/"<CR>
-nnoremap <Space>ev :vs <C-R>=expand("%:.:h") . "/"<CR>
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
 nnoremap <Space>es :sp <C-R>=expand("%:.:h") . "/"<CR>
+nnoremap <Space>ev :vs <C-R>=expand("%:.:h") . "/"<CR>
+nnoremap <Space>ew :e <C-R>=expand("%:.:h") . "/"<CR>
+nnoremap <Space>x :bn<CR>:bd#<CR>
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 " Deoplete ------------------------------------- {{{
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :

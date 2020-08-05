@@ -204,3 +204,16 @@ let g:qf_mapping_ack_style = 1
 " MUcomplete ----------------------------------- {{{
 let g:mucomplete#enable_auto_at_startup = 1
 "  }}}
+
+" Commands ------------------------------------- {{{
+function! s:redir(cmd) abort
+    let output = execute(a:cmd)
+    tabnew
+    setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
+    call setline(1, split(output, "\n"))
+endfunction
+command! -nargs=1 Redir silent call s:redir(<f-args>)
+
+command! -range GB echo join(systemlist("git -C " . shellescape(expand('%:p:h')) . " blame -L <line1>,<line2> " . expand('%:t')), "\n")
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+" }}}

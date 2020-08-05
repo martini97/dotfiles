@@ -15,7 +15,7 @@ if executable('prettier')
     setlocal formatprg=prettier\ %:p
 endif
 if executable('eslint')
-    setlocal makeprg=eslint\ --fix\ -f\ compact\ %
+    setlocal makeprg=eslint\ -f\ compact\ %
 endif
 
 " Vim polyglot sets this to a messed up value

@@ -80,6 +80,8 @@ set statusline+=[%n%H%M%R%W]%*\
 set statusline+=%-.40{pathshorten(expand('%:~:.'))}\ 
 set statusline+=%#StatusLineError#
 set statusline+=%{exists('*FugitiveStatusline')?FugitiveStatusline():''}%*\ 
+set statusline+=%#IncSearch#
+set statusline+=%{get(g:,\ 'asyncrun_status',\ '')\ ==\ 'running'\ ?\ '\ 🌀\ '\ :\ ''}%*\ 
 set statusline+=%=%y%*%*\ 
 set statusline+=%10((%l,%c)%)\ 
 set statusline+=%P
@@ -194,8 +196,6 @@ endif
 " }}}
 
 " Vim-QF --------------------------------------- {{{
-let g:qf_auto_open_quickfix = 1
-let g:qf_auto_open_loclist = 1
 let g:qf_shorten_path = 0
 let g:qf_auto_resize = 1
 let g:qf_mapping_ack_style = 1

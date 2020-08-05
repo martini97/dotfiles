@@ -19,13 +19,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'machakann/vim-sandwich'
 Plug 'romainl/vim-qf'
 Plug 'romainl/vim-cool'
-
-Plug 'neovim/nvim-lsp' |
-      \ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } |
-      \ Plug 'Shougo/deoplete-lsp' |
-      \ Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' } |
-      \ Plug 'deoplete-plugins/deoplete-jedi' |
-      \ Plug 'deoplete-plugins/deoplete-tag'
+Plug 'neovim/nvim-lsp'
+Plug 'lifepillar/vim-mucomplete'
 
 Plug 'tpope/vim-fugitive' |
       \ Plug 'tpope/vim-rhubarb'
@@ -68,6 +63,7 @@ set undofile
 let &undodir = stdpath('data') . '/undo'
 set number
 set relativenumber
+set completeopt-=preview
 set completeopt+=menuone,noselect,noinsert
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-column\ --smart-case\ --color=never
@@ -124,18 +120,6 @@ nnoremap <Space>ew :e <C-R>=expand("%:.:h") . "/"<CR>
 nnoremap <Space>x :bn<CR>:bd#<CR>
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
-" Deoplete ------------------------------------- {{{
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ deoplete#manual_complete()
-inoremap <expr><C-g> deoplete#undo_completion()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-" }}}
 " FZF.vim -------------------------------------- {{{
 nnoremap <silent> <C-b> :Buffers<cr>
 nnoremap <silent> <C-f> :Files<cr>
@@ -218,15 +202,6 @@ let g:qf_auto_resize = 1
 let g:qf_mapping_ack_style = 1
 " }}}
 
-" Deoplete ------------------------------------- {{{
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#ternjs#types = 1
-let g:deoplete#sources#ternjs#filetypes = [
-      \ 'javascript',
-      \ 'javascript.jsx',
-      \ 'javascriptreact',
-      \ 'typescript',
-      \ 'typescript.jsx',
-      \ 'typescriptreact',
-      \ ]
-" }}}
+" MUcomplete ----------------------------------- {{{
+let g:mucomplete#enable_auto_at_startup = 1
+"  }}}

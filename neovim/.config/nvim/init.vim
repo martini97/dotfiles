@@ -113,10 +113,6 @@ augroup close_preview
 augroup END
 " }}}
 
-" Commands ------------------------------------- {{{
-command! -nargs=+ -complete=file -bar Grep silent! grep! <args>|cwindow|redraw!|wincmd p
-" }}}
-
 " Mappings ------------------------------------- {{{
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
@@ -125,7 +121,6 @@ cnoremap <C-j> <Down>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 nnoremap <Space>x :bn<CR>:bd#<CR>
-nnoremap <C-s> :Grep<Space>
 nnoremap <Space>ew :e <C-R>=expand("%:.:h") . "/"<CR>
 nnoremap <Space>ev :vs <C-R>=expand("%:.:h") . "/"<CR>
 nnoremap <Space>es :sp <C-R>=expand("%:.:h") . "/"<CR>

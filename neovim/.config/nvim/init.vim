@@ -21,9 +21,8 @@ Plug 'romainl/vim-qf'
 Plug 'romainl/vim-cool'
 Plug 'neovim/nvim-lsp'
 Plug 'lifepillar/vim-mucomplete'
+Plug 'tpope/vim-fugitive'
 
-Plug 'tpope/vim-fugitive' |
-      \ Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/fzf', {  'dir': '~/.fzf', 'do': { -> fzf#install() } }
       \ | Plug 'junegunn/fzf.vim'
 Plug 'vim-test/vim-test' |

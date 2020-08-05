@@ -12,7 +12,7 @@ function! LoadMainNodeModule(fname)
 endfunction
 
 if executable('prettier')
-    setlocal formatprg=prettier
+    setlocal formatprg=prettier\ %:p
 endif
 if executable('eslint')
     setlocal makeprg=eslint\ --fix\ -f\ compact\ %

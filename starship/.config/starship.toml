@@ -6,6 +6,7 @@ symbol = " "
 
 [character]
 use_symbol_for_status = true
+vicmd_symbol = ""
 
 [directory]
 truncate_to_repo = false

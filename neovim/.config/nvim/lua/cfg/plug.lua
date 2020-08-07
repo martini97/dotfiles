@@ -1,11 +1,10 @@
 local file = require("cfg.file")
 local plug = {}
-local PLUGIN_DIR = "~/.config/nvim/plugged"
+local plugins_dir = vim.fn.stdpath("data") .. "/plugged"
+local plug_path = vim.fn.stdpath("data") .. "/site/autoload/plug.vim"
 
 -- install vim plug if not installed
 function plug.install()
-  local home = file.get_home_dir()
-  local plug_path = home .. "/.local/share/nvim/site/autoload/plug.vim"
   local autocmd = require("cfg.autocmd")
   local url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
@@ -21,7 +20,7 @@ end
 
 --- Start loading all registered plugins
 function plug.finish_plugin_registration()
-  vim.fn["plug#begin"](PLUGIN_DIR)
+  vim.fn["plug#begin"](plugins_dir)
 
   for _, v in pairs(plug.plugins) do
     if type(v) == "string" then

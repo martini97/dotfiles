@@ -2,6 +2,7 @@ local keybind = require("cfg.keybind")
 local edit_mode = require("cfg.edit_mode")
 local autocmd = require("cfg.autocmd")
 local plug = require("cfg.plug")
+local utils = require("cfg.utils")
 local kbc = keybind.bind_command
 local kbbc = keybind.buf_bind_command
 
@@ -37,6 +38,19 @@ local function attach_client()
   else
     print("No LSP client registered for filetype " .. filetype)
   end
+end
+
+local function load_diagnostics_on_loclist(_, _, result, client_id)
+  if not result or not result.diagnostics then
+    return
+  end
+  for _, v in ipairs(result.diagnostics) do
+    v.bufnr = client_id
+    v.lnum = v.range.start.line + 1
+    v.col = v.range.start.character + 1
+    v.text = v.message
+  end
+  vim.lsp.util.set_loclist(result.diagnostics)
 end
 
 --- Configures vim and plugins for this layer
@@ -82,6 +96,14 @@ function layer.init_config()
       return ''
     endfunction
     ]], false)
+
+  -- Add diagnostics to loclist
+  local diagnostic_method_name = "textDocument/publishDiagnostics"
+  local default_diagnostic_method = vim.lsp.callbacks[diagnostic_method_name]
+  vim.lsp.callbacks[diagnostic_method_name] = utils.add_hook_after(
+    default_diagnostic_method,
+    load_diagnostics_on_loclist
+  )
 end
 
 --- Maps filetypes to their server definitions

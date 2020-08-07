@@ -106,9 +106,12 @@ function layer.init_config()
       ['gitcommit'] = true,
       ['fugitive'] = true,
     }
-    if line_nr_quote >= 1 and line_nr_quote <= line_nr_last and not nonofiletypes[filetype] then
-      vcmd("normal! g`\"")
+    if line_nr_quote <= 1 or line_nr_quote >= line_nr_last or nonofiletypes[filetype] then
+      return
     end
+
+    local last_position = vim.api.nvim_buf_get_mark(0, '"')
+    vim.api.nvim_win_set_cursor(0, last_position)
   end)
 
   -- Highlight yanks

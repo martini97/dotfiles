@@ -30,11 +30,16 @@ function layer.init_config()
   local nvim_lsp = require("nvim_lsp")
   local lsp_status = require("lsp-status")
   local config = {
-    callbacks = lsp_status.extensions.pyls_ms.setup(),
-    cmd = {vim.g.python3_host_prog, "-m", "pyls"},
-  }
+    callbacks = lsp_status.extensions.pyls_ms.setup();
+    init_options = {
+      interpreter = {
+        properties = {
+          InterpreterPath = vim.g.python3_host_prog;
+          Version = "3.6";
+  }}}}
 
-  lsp.register_server(nvim_lsp.pyls, config)
+  -- XXX: testing pyls_ms for a bit
+  lsp.register_server(nvim_lsp.pyls_ms, config)
   autocmd.bind_filetype("python", on_filetype_python)
 end
 

@@ -97,7 +97,17 @@ function layer.init_config()
 
   -- Remeber last cursor position
   autocmd.bind("BufReadPost *", function()
-    vcmd("normal! g`\"")
+    local line_nr_quote = vim.api.nvim_call_function('line', {"'\""})
+    local line_nr_last = vim.api.nvim_call_function('line', {"$"})
+    local filetype = vim.bo[0].filetype
+    local nonofiletypes = {
+      ['commit'] = true,
+      ['gitcommit'] = true,
+      ['fugitive'] = true,
+    }
+    if line_nr_quote >= 1 and line_nr_quote <= line_nr_last and not nonofiletypes[filetype] then
+      vcmd("normal! g`\"")
+    end
   end)
 
   -- Highlight yanks

@@ -15,7 +15,7 @@ local function set_globals()
   vim.wo.list = true
   vim.wo.listchars = "tab:│ ,eol: ,trail:·"
   vim.wo.cursorline = true
-  vim.o.timeoutlen = 200
+  vim.o.timeoutlen = 700
   vim.wo.signcolumn = "auto"
 
   vim.g.lightline = {

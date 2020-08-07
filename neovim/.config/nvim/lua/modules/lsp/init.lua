@@ -63,12 +63,11 @@ function layer.init_config()
       kbbc(edit_mode.NORMAL, "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {noremap = true})
       kbbc(edit_mode.NORMAL, "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", {noremap = true})
       kbbc(edit_mode.NORMAL, "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {noremap = true})
+      kbbc(edit_mode.NORMAL, ",gr", "<cmd>lua vim.lsp.buf.references()<CR>", {noremap = true})
+      kbbc(edit_mode.NORMAL, ",gR", "<cmd>lua vim.lsp.buf.rename()<CR>", {noremap = true})
+      kbbc(edit_mode.NORMAL, ",ld", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", {noremap = true})
     end
   end)
-
-  kbc(edit_mode.NORMAL, ",gr", "<cmd>lua vim.lsp.buf.references()<CR>", {noremap = true})
-  kbc(edit_mode.NORMAL, "<c-r>", "<cmd>lua vim.lsp.buf.rename()<CR>", {noremap = true})
-  kbc(edit_mode.NORMAL, "<space>d", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", {noremap = true})
 
   autocmd.bind_cursor_hold(function()
     vim.cmd("lua vim.lsp.util.show_line_diagnostics()")

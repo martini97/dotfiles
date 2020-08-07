@@ -25,10 +25,14 @@ local function set_globals()
         {"mode"; "paste"};
         {"gitbranch"; "readonly"; "filename"; "modified"; "lineinfo"};
       };
-      right = {{"lsp"}};
+      right = {{"lsp"}; {"gutentags"}};
     };
     tabline = {left = {{"buffers"}}; right = {{"close"}}};
-    component_function = {gitbranch = "FugitiveStatusline"; lsp = "LspStatus"};
+    component_function = {
+      gitbranch = "FugitiveStatusline";
+      lsp = "LspStatus";
+      gutentags = "gutentags#statusline";
+    };
     colorscheme = "monokai_tasty";
   }
 end

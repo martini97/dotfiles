@@ -13,6 +13,7 @@ function layer.register_plugins()
   plug.add_plugin('machakann/vim-sandwich')
   plug.add_plugin('romainl/vim-qf')
   plug.add_plugin('romainl/vim-cool')
+  plug.add_plugin('ludovicchabant/vim-gutentags')
 end
 
 function layer.python3_provider()

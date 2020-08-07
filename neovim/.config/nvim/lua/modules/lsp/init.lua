@@ -84,7 +84,7 @@ function layer.init_config()
   end)
 
   autocmd.bind_cursor_hold(function()
-    vim.cmd("lua vim.lsp.util.show_line_diagnostics()")
+    vim.lsp.util.show_line_diagnostics()
   end)
 
   vim.api.nvim_exec([[

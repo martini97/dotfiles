@@ -10,10 +10,11 @@ local layer = {}
 function layer.register_plugins()
   plug.add_plugin("sheerun/vim-polyglot")
   plug.add_plugin("skywind3000/asyncrun.vim")
-  plug.add_plugin('machakann/vim-sandwich')
-  plug.add_plugin('romainl/vim-qf')
-  plug.add_plugin('romainl/vim-cool')
-  plug.add_plugin('ludovicchabant/vim-gutentags')
+  plug.add_plugin("machakann/vim-sandwich")
+  plug.add_plugin("romainl/vim-qf")
+  plug.add_plugin("romainl/vim-cool")
+  plug.add_plugin("ludovicchabant/vim-gutentags")
+  plug.add_plugin("tpope/vim-unimpaired")
 end
 
 function layer.python3_provider()

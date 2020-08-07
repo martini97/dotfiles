@@ -18,20 +18,23 @@ local function set_globals()
   vim.o.timeoutlen = 200
   vim.wo.signcolumn = "auto"
 
-  -- lightline config
   vim.g.lightline = {
     active = {
       left = {
         {"mode"; "paste"};
         {"gitbranch"; "readonly"; "filename"; "modified"; "lineinfo"};
       };
-      right = {{"lsp"}; {"gutentags"}};
+      right = {
+        {"asyncrun"; "gutentags"};
+        {"lsp"};
+      };
     };
     tabline = {left = {{"buffers"}}; right = {{"close"}}};
     component_function = {
       gitbranch = "FugitiveStatusline";
       lsp = "LspStatus";
       gutentags = "gutentags#statusline";
+      asyncrun = "AsyncrunStatus";
     };
     colorscheme = "monokai_tasty";
   }

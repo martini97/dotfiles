@@ -119,6 +119,19 @@ function layer.init_config()
   -- A shortcut command for :lua print(vim.inspect(...)) (:Li for Lua Inspect)
   vcmd("command! -nargs=+ Li :lua print(vim.inspect(<args>))")
   vcmd("command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>")
+
+  -- Return asyncrun status
+  vim.api.nvim_exec([[
+    function! AsyncrunStatus() abort
+      let status = get(g:, 'asyncrun_status', '')
+      if status == 'running'
+        return ' running'
+      elseif status == 'failure'
+        return ' error'
+      endif
+      return ''
+    endfunction
+    ]], false)
 end
 
 return layer

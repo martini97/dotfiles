@@ -9,4 +9,5 @@ function! s:redir(cmd) abort
     setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
     call setline(1, split(output, "\n"))
 endfunction
-command! -nargs=1 Redir silent call s:redir(<f-args>)
+
+command! -nargs=1 -complete=command Redir silent call s:redir(<f-args>)

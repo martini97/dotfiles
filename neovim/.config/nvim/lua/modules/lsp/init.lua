@@ -45,6 +45,7 @@ local function load_diagnostics_on_loclist(_, _, result, client_id)
     return
   end
   for _, v in ipairs(result.diagnostics) do
+    v.uri = v.uri or result.uri
     v.bufnr = client_id
     v.lnum = v.range.start.line + 1
     v.col = v.range.start.character + 1

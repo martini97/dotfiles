@@ -1,9 +1,9 @@
 " Based on https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
 
-if exists("g:loaded_grapple")
+if exists("g:loaded_grep")
   finish
 endif
-let g:loaded_grapple = 1
+let g:loaded_grep = 1
 
 function! s:grep(...)
   return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))

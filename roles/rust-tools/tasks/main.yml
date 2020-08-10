@@ -1,0 +1,45 @@
+- name: Download rustup
+  get_url:
+    url: https://sh.rustup.rs
+    dest: "{{ downloads_directory }}/rustup"
+    mode: 0755
+
+- name: Install rustup
+  command: >
+    "{{ downloads_directory }}/rustup" -y --no-modify-path
+  args:
+    creates: "{{ home_directory }}/.cargo/bin/rustup"
+
+- name: Install completions
+  shell: >
+    "{{ home_directory }}/.cargo/bin/rustup" completions {{ item.completion }} > "{{ zsh_completions_directory }}/_{{ item.dest }}"
+  args:
+    creates: "{{ zsh_completions_directory }}/_{{ item.dest }}"
+  loop:
+    - completion: "zsh"
+      dest: "rustup"
+    - completion: "zsh cargo"
+      dest: "cargo"
+
+- name: Install rust tools
+  command: >
+    "{{ home_directory }}/.cargo/bin/cargo" install {{ item.package }}
+  args:
+    creates: "{{ home_directory }}/.cargo/bin/{{ item.bin }}"
+  loop:
+    - package: starship
+      bin: starship
+    - package: bat
+      bin: bat
+    - package: exa
+      bin: exa
+    - package: fd-find
+      bin: fd
+    - package: procs
+      bin: procs
+    - package: ripgrep
+      bin: rg
+    - package: ytop
+      bin: ytop
+    - package: zoxide
+      bin: zoxide

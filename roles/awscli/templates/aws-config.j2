@@ -1,0 +1,7 @@
+{% for aws_profile in vault_aws_profiles %}
+[{{ aws_profile.name }}]
+region = {{ aws_profile.region }}
+{% if not loop.last %}
+
+{% endif %}
+{% endfor %}

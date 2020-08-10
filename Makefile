@@ -7,7 +7,12 @@ MAKEFLAGS += --no-builtin-rules
 .DEFAULT_GOAL := stow
 
 target_dir = ${HOME}
-apps = $(wildcard */)
+apps = $(filter-out ansible/, $(wildcard */))
 
 stow:
 	@stow --target=${target_dir} ${apps}
+
+setup:
+	@. ./.venv/bin/activate
+	@./.venv/bin/ansible-playbook -i ./hosts dotfiles.yml --ask-become-pass --ask-vault-pass --tags "all"
+	@deactivate

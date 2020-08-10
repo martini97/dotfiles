@@ -1,0 +1,30 @@
+git_name: "Alessandro Martini"
+git_user: martini97
+
+home_directory: "{{ lookup('env', 'HOME') }}"
+xdg_config_directory: "{{ home_directory }}/.config"
+downloads_directory: "{{ home_directory }}/.ansible/downloads"
+zsh_completions_directory: "{{ xdg_config_directory }}/zsh/completions"
+backups_directory: "{{ home_directory }}/.local/share"
+venvs_directory: "{{ home_directory }}/.virtualenvs"
+
+neovim_version: nightly
+
+homebrew_update_all: no
+homebrew_upgrade_all: no
+
+current_user: "{{ lookup('env','USER') }}"
+
+python3_version: "3.8.5"
+python3_version_major_minor: "{{ python3_version | regex_replace('^([0-9]+)\\.([0-9]+)(?:\\.[0-9]+)?$', '\\1.\\2') }}"
+
+dotfiles:
+  - config/karabiner
+  - config/kitty
+  - config/nvim
+  - config/starship.toml
+  - config/tmux
+  - config/zsh
+
+aws_cli_path: "{{ home_directory }}/bin"
+aws_config_path: "{{ home_directory }}/.aws"

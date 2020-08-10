@@ -1,0 +1,32 @@
+- name: Assure dotfiles dir exists
+  file:
+    path: "{{ home_directory }}/.{{ item }}"
+    state: directory
+  loop:
+    - config
+
+- name: Assure backups dir exists
+  file:
+    path: "{{ backups_directory }}"
+    state: directory
+
+- name: Backup existing dotfiles
+  copy:
+    src: "{{ home_directory }}/.{{ item }}"
+    dest: "{{ backups_directory }}/{{ item }}-backup.{{ ansible_date_time.epoch }}"
+  ignore_errors: true
+  loop: "{{ dotfiles }}"
+
+- name: Delete existing dotfiles
+  file:
+    path: "{{ home_directory }}/.{{ item }}"
+    state: absent
+  loop: "{{ dotfiles }}"
+
+- name: Link dotfiles
+  file:
+    src: "{{ playbook_dir }}/roles/dotfiles/files/{{ item }}"
+    path: "{{ home_directory }}/.{{ item }}"
+    state: link
+    force: yes
+  loop: "{{ dotfiles }}"

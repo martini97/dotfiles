@@ -1,0 +1,32 @@
+- name: Is Docker installed?
+  command: which docker
+  register: which_docker
+  ignore_errors: yes
+
+- name: Download Docker
+  get_url:
+    url: https://download.docker.com/mac/stable/Docker.dmg
+    dest: "{{ downloads_directory }}/Docker.dmg"
+  when: which_docker.rc != 0
+
+- name: Mount the Docker image
+  command: hdiutil attach -nobrowse Docker.dmg
+  args:
+    chdir: "{{ downloads_directory }}"
+    creates: /Volumes/Docker
+  when: which_docker.rc != 0
+
+- name: Install Docker
+  command: cp -R /Volumes/Docker/Docker.app /Applications
+  args:
+    creates: /Applications/Docker.app
+  become: yes
+  when: which_docker.rc != 0
+
+- name: Unmount the Docker image
+  command: hdiutil detach /Volumes/Docker
+  when: which_docker.rc != 0
+
+- name: Start Docker
+  command: open /Applications/Docker.app
+  when: which_docker.rc != 0

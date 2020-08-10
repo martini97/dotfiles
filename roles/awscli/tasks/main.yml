@@ -1,0 +1,51 @@
+- name: Is AWS CLI installed?
+  stat:
+    path: "{{ aws_cli_path }}/aws-cli/aws"
+  register: aws_stat
+
+- name: Render aws cli choices
+  template:
+    src: aws-cli-choices.j2
+    dest: "{{ downloads_directory }}/aws-cli-choices.xml"
+    backup: yes
+  when: not aws_stat.stat.exists
+
+- name: Download awscliv2.pkg
+  get_url:
+    url: https://awscli.amazonaws.com/AWSCLIV2.pkg
+    dest: "{{ downloads_directory }}/AWSCLIV2.pkg"
+  when: not aws_stat.stat.exists
+
+- name: Install AWC CLI
+  command: >
+    installer -pkg AWSCLIV2.pkg
+      -target CurrentUserHomeDirectory
+      -applyChoiceChangesXML aws-cli-choices.xml
+  args:
+    chdir: "{{ downloads_directory }}"
+  when: not aws_stat.stat.exists
+
+- name: Link AWS CLI to path
+  file:
+    src: "{{ aws_cli_path }}/aws-cli/{{ item }}"
+    dest: "{{ home_directory }}/bin/{{ item }}"
+    state: link
+  loop:
+    - aws
+  when: not aws_stat.stat.exists
+
+- name: Ensure AWS config dir exists
+  file:
+    path: "{{ aws_config_path }}"
+    state: directory
+
+- name: Render templates
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    backup: yes
+  loop:
+    - src: aws-config.j2
+      dest: "{{ aws_config_path }}/config"
+    - src: aws-credentials.j2
+      dest: "{{ aws_config_path }}/credentials"

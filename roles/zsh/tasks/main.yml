@@ -1,0 +1,36 @@
+- name: ZSH path on Mac
+  register: zsh_path
+  shell: >
+    echo "$(brew --prefix)/bin/zsh"
+
+- name: Add zsh to /etc/shells
+  lineinfile:
+    path: /etc/shells
+    line: "{{ zsh_path.stdout }}"
+  become: yes
+
+- name: Change current user shell
+  become: yes
+  user:
+    name: "{{ ansible_ssh_user }}"
+    shell: "{{ zsh_path.stdout }}"
+    groups:
+      - admin
+
+- name: Ensure zdotdir exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/zsh"
+    state: directory
+
+# This directory is going to be populated by generated files
+- name: Create completions dir
+  file:
+    path: "{{ ansible_env.HOME }}/.config/zsh/completions"
+    state: directory
+
+# Zshenv requires some secret values
+- name: Render zshenv
+  template:
+    src: zshenv.j2
+    dest: "{{ ansible_env.HOME }}/.zshenv"
+    backup: yes

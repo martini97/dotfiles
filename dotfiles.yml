@@ -1,0 +1,41 @@
+#!/usr/bin/env ansible-playbook
+
+- name: Setup dev environment
+  hosts: all
+  become: no
+  vars_files:
+    - group_vars/vault.yml
+    - group_vars/all.yml
+  roles:
+    - role: pre-tasks
+      tags: [pre]
+
+    - role: mac-dependencies
+      tags: [dependencies]
+
+    - role: git
+      tags: [git]
+
+    - role: zsh
+      tags: [zsh]
+
+    - role: rust-tools
+      tags: [rust]
+
+    - role: tmux
+      tags: [tmux]
+
+    - role: neovim
+      tags: [neovim]
+
+    - role: dotfiles
+      tags: [dotfiles]
+
+    - role: docker
+      tags: [docker]
+
+    - role: awscli
+      tags: [awscli]
+
+    - role: node
+      tags: [node]

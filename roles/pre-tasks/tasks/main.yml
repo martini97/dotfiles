@@ -1,0 +1,33 @@
+- name: Ensure the download directory exists
+  file:
+    path: "{{ downloads_directory }}"
+    state: directory
+
+- name: Ensure the xdg config directory exists
+  file:
+    path: "{{ xdg_config_directory }}"
+    state: directory
+
+- name: Ensure SSH dir exists
+  file:
+    path: "{{ home_directory }}/.ssh"
+    state: directory
+
+- name: Ensure bin dir exists
+  file:
+    path: "{{ home_directory }}/bin"
+    state: directory
+
+- name: SSH known_hosts contains github.com key
+  lineinfile:
+    dest: "{{ home_directory }}/.ssh/known_hosts"
+    create: true
+    mode: 0644
+    state: present
+    line: "{{ lookup('file', 'github_ssh_host_key') }}"
+    regexp: "^github\\.com "
+
+- name: Ensure the virtualenvs dir exists
+  file:
+    path: "{{ venvs_directory }}"
+    state: directory

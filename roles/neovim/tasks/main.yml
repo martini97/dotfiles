@@ -1,0 +1,55 @@
+- name: Create neovim python venv
+  shell: >
+    "$(brew --prefix)/bin/python3" -m venv "{{ venvs_directory }}/neovim"
+  args:
+    creates: "{{ venvs_directory }}/neovim"
+
+- name: Install python lib for neovim
+  pip:
+    name: pynvim
+    state: latest
+    virtualenv: "{{ venvs_directory }}/neovim"
+
+- name: Install node lib for neovim
+  npm:
+    name: neovim
+    state: latest
+    global: yes
+
+- name: Install ruby lib for neovim
+  gem:
+    name: neovim
+    state: latest
+
+- name: Install plugins
+  shell: nvim --headless +'PlugInstall --sync' +qall &> /dev/null
+
+- name: Install LSPs
+  shell: "nvim --headless +'LspInstall {{ item.name }}' +qall &> /dev/null"
+  args:
+    creates: "{{ item.creates }}"
+  loop:
+    - name: html
+      creates: "{{ nvim_lsp_cache }}/html/node_modules/.bin/html-languageserver"
+    - name: bashls
+      creates: "{{ nvim_lsp_cache }}/bashls/node_modules/.bin/bash-language-server"
+    - name: yamlls
+      creates: "{{ nvim_lsp_cache }}/yamlls/node_modules/.bin/yaml-language-server"
+    - name: jsonls
+      creates: "{{ nvim_lsp_cache }}/jsonls/node_modules/.bin/vscode-json-languageserver"
+    - name: tsserver
+      creates: "{{ nvim_lsp_cache }}/tsserver/node_modules/.bin/typescript-language-server"
+    - name: vimls
+      creates: "{{ nvim_lsp_cache }}/vimls/node_modules/.bin/vim-language-server"
+    - name: pyls_ms
+      creates: "{{ nvim_lsp_cache }}/pyls_ms/Microsoft.Python.LanguageServer.dll"
+    # FIX: sumneko_lua install fails :(
+    - name: sumneko_lua
+      creates: "{{ nvim_lsp_cache }}/sumneko_lua/lua-language-server/bin/macOS/lua-language-server"
+
+- name: Install gopls
+  command: go get golang.org/x/tools/gopls@latest
+  args:
+    creates: "{{ home_directory }}/go/bin/gopls"
+  environment:
+    GO111MODULE: "on"

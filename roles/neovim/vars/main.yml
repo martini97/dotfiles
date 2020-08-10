@@ -1,0 +1,1 @@
+nvim_lsp_cache: "{{ home_directory }}/.cache/nvim/nvim_lsp"

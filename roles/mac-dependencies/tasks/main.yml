@@ -1,0 +1,75 @@
+- name: Install homebrew
+  shell: >
+    yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  args:
+    executable: /bin/bash
+    creates: /usr/local/bin/brew
+
+- name: Homebrew taps
+  homebrew_tap:
+    name: "{{ item }}"
+  loop:
+    - homebrew/cask-fonts
+
+- name: Update homebrew
+  homebrew:
+    name: git
+    state: latest
+    update_homebrew: yes
+  when: homebrew_update_all
+
+- name: Upgrade homebrew packages
+  homebrew:
+    upgrade_all: true
+  when: homebrew_upgrade_all
+
+- name: Install latest packages
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - binutils
+    - coreutils
+    - diffutils
+    - fzf
+    - gnu-tar
+    - gnutls
+    - golang
+    - gzip
+    - hub
+    - jq
+    - make
+    - python
+    - stow
+    - wget
+    - zsh
+
+- name: Install head packages
+  homebrew:
+    name: "{{ item }}"
+    state: head
+  loop:
+    - tmux
+    - neovim
+
+- name: Install cask packages
+  homebrew_cask:
+    name: "{{ item }}"
+  ignore_errors: true
+  loop:
+    - firefox
+    - font-iosevka
+    - karabiner-elements
+    - kitty
+    - slack
+    - spotify
+    - google-chrome
+    - 1password
+    - 1password-cli
+    - dotnet
+
+- name: homebrew cleanup
+  command: brew cleanup
+
+- name: Defaults setup
+  command: "{{ playbook_dir }}/roles/mac-dependencies/files/defaults.sh"

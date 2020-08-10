@@ -1,0 +1,17 @@
+- name: Download NVM install scrip
+  get_url:
+    url: "https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_version }}/install.sh"
+    dest: "{{ downloads_directory }}/nvim-install.sh"
+
+- name: Install NVM
+  command: >
+    bash "{{ downloads_directory }}/nvim-install.sh"
+  args:
+    creates: "{{ ansible_env.HOME }}/.config/nvm/nvm.sh"
+
+- name: Install latest Node.js
+  shell: |
+    . "${HOME}/.config/nvm/nvm.sh"
+    nvm install node
+  args:
+    creates: "{{ home_directory }}/.config/nvm/versions/node/*/bin/node"

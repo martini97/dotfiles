@@ -1,0 +1,4 @@
+- name: Fix terminfo
+  shell: |
+    tic "{{ playbook_dir }}/roles/tmux/files/xterm-256color-italic.terminfo"
+    tic "{{ playbook_dir }}/roles/tmux/files/tmux-256color-italic.terminfo"

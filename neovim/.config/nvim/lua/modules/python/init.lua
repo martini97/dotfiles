@@ -31,6 +31,11 @@ function layer.init_config()
   local lsp_status = require("lsp-status")
   local config = {
     callbacks = lsp_status.extensions.pyls_ms.setup();
+    settings = {
+      python = {
+        analysis = {
+          disabled = {};
+    }}};
     init_options = {
       interpreter = {
         properties = {

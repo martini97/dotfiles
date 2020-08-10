@@ -8,11 +8,11 @@ function keybind.bind_command(mode, keys, command, options)
 
 end
 
-function keybind.buf_bind_command(mode, keys, command, options)
+function keybind.buf_bind_command(mode, keys, command, options, bufnr)
   options = options or {}
+  bufnr = bufnr or 0
 
-  vim.api.nvim_buf_set_keymap(0, mode.map_prefix, keys, command, options)
-
+  vim.api.nvim_buf_set_keymap(bufnr, mode.map_prefix, keys, command, options)
 end
 
 keybind._bound_funcs = {}

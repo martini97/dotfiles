@@ -40,13 +40,13 @@ local function attach_client()
   end
 end
 
-local function load_diagnostics_on_loclist(_, _, result, client_id)
+local function load_diagnostics_on_loclist(_, _, result, _)
   if not result or not result.diagnostics then
     return
   end
   for _, v in ipairs(result.diagnostics) do
     v.uri = v.uri or result.uri
-    v.bufnr = client_id
+    v.bufnr = vim.api.nvim_get_current_buf()
     v.lnum = v.range.start.line + 1
     v.col = v.range.start.character + 1
     v.text = v.message
@@ -70,19 +70,6 @@ function layer.init_config()
   end)
 
   vim.o.completeopt = "menuone,noinsert,noselect"
-
-  -- Jumping to places
-  autocmd.bind_filetype("*", function()
-    local server = layer.filetype_servers[vim.bo.ft]
-    if server ~= nil then
-      kbbc(edit_mode.NORMAL, "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {noremap = true})
-      kbbc(edit_mode.NORMAL, "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", {noremap = true})
-      kbbc(edit_mode.NORMAL, "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {noremap = true})
-      kbbc(edit_mode.NORMAL, ",gr", "<cmd>lua vim.lsp.buf.references()<CR>", {noremap = true})
-      kbbc(edit_mode.NORMAL, ",gR", "<cmd>lua vim.lsp.buf.rename()<CR>", {noremap = true})
-      kbbc(edit_mode.NORMAL, ",ld", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", {noremap = true})
-    end
-  end)
 
   autocmd.bind_cursor_hold(function()
     vim.lsp.util.show_line_diagnostics()
@@ -118,9 +105,18 @@ function layer.register_server(server, config)
   lsp_status.register_progress()
 
   config = config or {}
-  config.on_attach = function(client)
+  config.on_attach = function(client, bufnr)
     lsp_status.on_attach(client)
     completion.on_attach(client)
+
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+    kbbc(edit_mode.NORMAL, "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {noremap = true}, bufnr)
+    kbbc(edit_mode.NORMAL, "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", {noremap = true}, bufnr)
+    kbbc(edit_mode.NORMAL, "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {noremap = true}, bufnr)
+    kbbc(edit_mode.NORMAL, ",gr", "<cmd>lua vim.lsp.buf.references()<CR>", {noremap = true}, bufnr)
+    kbbc(edit_mode.NORMAL, ",gR", "<cmd>lua vim.lsp.buf.rename()<CR>", {noremap = true}, bufnr)
+    kbbc(edit_mode.NORMAL, ",ld", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", {noremap = true}, bufnr)
   end
 
   config.capabilities = vim.tbl_extend("keep", config.capabilities or {}, lsp_status.capabilities)

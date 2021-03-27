@@ -1,0 +1,20 @@
+[core]
+    excludesfile = ~/.config/git/ignore
+    editor = nvim
+
+[commit]
+    verbose = true
+
+[alias]
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    rbi = !sh -c \"git rebase -i `git merge-base origin/master HEAD`\" -
+
+[push]
+    default = current
+
+[user]
+    name = Alessandro Martini
+    email = alessandro.martini@loadsmart.com
+
+[pull]
+    rebase = true

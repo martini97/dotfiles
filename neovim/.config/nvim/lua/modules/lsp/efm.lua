@@ -9,11 +9,29 @@ local eslint = {
   formatStdin = true
 }
 
+local flake8 = {
+  lintCommand = "flake8 --max-line-length 160 --stdin-display-name ${INPUT} -",
+  lintStdin = true,
+  lintIgnoreExitCode = true,
+  lintFormats = {"%f=%l:%c: %m"}
+}
+
+local isort = {
+  formatCommand = "isort --stdout --profile black -",
+  formatStdin = true
+}
+
+local black = {
+  formatCommand = "black -",
+  formatStdin = true
+}
+
 M.languages = {
   javascript = {eslint},
   javascriptreact = {eslint},
   typescript = {eslint},
-  typescriptreact = {eslint}
+  typescriptreact = {eslint},
+  python = {black, isort, flake8, mypy},
 }
 
 return M

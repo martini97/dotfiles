@@ -32,9 +32,13 @@ end
 local function dependencies()
   local dependencies_dir = vim.fn.stdpath('config') .. '/dependencies'
   local node_deps = dependencies_dir .. '/node/node_modules/.bin'
+  local py_deps = dependencies_dir .. '/python/venv/bin'
+  local deps = { node_deps, py_deps }
 
-  if utils.isdir(node_deps) then
-    vim.env.PATH = node_deps .. ':' .. vim.env.PATH
+  for _, dep in ipairs(deps) do
+    if utils.isdir(node_deps) then
+      vim.env.PATH = dep .. ':' .. vim.env.PATH
+    end
   end
 end
 

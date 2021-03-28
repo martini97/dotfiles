@@ -80,7 +80,7 @@ return require("packer").startup(function(use)
     "vim-test/vim-test",
     requires = {"christoomey/vim-tmux-runner"},
     config = function()
-      vim.g["test#strategy"] = "vtr"
+      require("modules.test").setup()
     end,
   }
 end)

@@ -51,4 +51,6 @@ return require("packer").startup(function(use)
     end,
     requires = {"glepnir/lspsaga.nvim", "hrsh7th/nvim-compe"},
   }
+
+  use {"editorconfig/editorconfig-vim"}
 end)

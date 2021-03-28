@@ -77,7 +77,18 @@ local function keymaps()
   ]]
 end
 
+local function autocommands()
+  local autocmds = {
+    highlight_yank = {
+      {"TextYankPost", "*", [[lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}]]}
+    }
+  }
+
+  utils.nvim_create_augroups(autocmds)
+end
+
 options()
 providers()
 dependencies()
 keymaps()
+autocommands()

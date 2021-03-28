@@ -83,4 +83,6 @@ return require("packer").startup(function(use)
       require("modules.test").setup()
     end,
   }
+
+  use {"romainl/vim-cool"}
 end)

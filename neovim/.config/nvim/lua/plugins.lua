@@ -59,4 +59,12 @@ return require("packer").startup(function(use)
   }
 
   use {"editorconfig/editorconfig-vim"}
+
+  use {
+    'hoob3rt/lualine.nvim',
+    config = function()
+      require('modules.statusline').setup()
+    end,
+    requires = {'kyazdani42/nvim-web-devicons', opt = true}
+  }
 end)

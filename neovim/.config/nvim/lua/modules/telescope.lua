@@ -1,3 +1,5 @@
+local M = {}
+
 require("telescope").setup{ defaults = {shorten_path = false} }
 require("telescope").load_extension("fzy_native")
 
@@ -24,11 +26,15 @@ local mappings = {
   {
     "n",
     "<space>fb",
-    [[<Cmd>lua require("telescope.builtin").find_buffers()<CR>]],
+    [[<Cmd>lua require("telescope.builtin").buffers()<CR>]],
     opts
   },
 }
 
-for _, map in pairs(mappings) do
-  vim.api.nvim_set_keymap(unpack(map))
+function M.setup()
+  for _, map in pairs(mappings) do
+    vim.api.nvim_set_keymap(unpack(map))
+  end
 end
+
+return M

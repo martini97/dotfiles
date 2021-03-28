@@ -33,21 +33,21 @@ return require("packer").startup(function(use)
       {'nvim-telescope/telescope-fzy-native.nvim'},
     },
     config = function ()
-      require('modules.telescope')
+      require('modules.telescope').setup()
     end,
   }
 
   use {
     "nvim-treesitter/nvim-treesitter",
     config = function()
-      require("modules.treesitter")
+      require("modules.treesitter").setup()
     end,
   }
 
   use {
     "neovim/nvim-lspconfig",
     config = function()
-      require("modules.lsp")
+      require("modules.lsp").setup()
     end,
     requires = {"glepnir/lspsaga.nvim", "hrsh7th/nvim-compe"},
   }

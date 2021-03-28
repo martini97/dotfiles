@@ -67,4 +67,12 @@ return require("packer").startup(function(use)
     end,
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
+
+  use {
+    "szw/vim-maximizer",
+    config = function()
+      vim.g.maximizer_set_default_mapping = 0
+      vim.api.nvim_set_keymap("n", "<C-w>o", ":MaximizerToggle<Cr>", { noremap = true })
+    end,
+  }
 end)

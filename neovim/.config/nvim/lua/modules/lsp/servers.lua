@@ -3,6 +3,7 @@ local M = {}
 local nvim_lsp = require("lspconfig")
 local saga = require("lspsaga")
 local keymaps = require("modules.lsp.keymaps")
+local efm = require("modules.lsp.efm")
 
 
 local function make_on_attach(config)
@@ -30,7 +31,31 @@ end
 
 local servers = {
   pyright = {},
-  tsserver = {},
+  tsserver = {
+    before = function (_, client, _)
+      if client.config.flags then
+        client.config.flags.allow_incremental_sync = true
+      end
+      client.resolved_capabilities.document_formatting = false
+      client.resolved_capabilities.document_range_formatting = false
+    end,
+  },
+  efm = {
+    before = function (_, client, _)
+      client.resolved_capabilities.document_range_formatting = true
+      client.resolved_capabilities.document_formatting = true
+      client.resolved_capabilities.goto_definition = false
+    end,
+    root_dir = nvim_lsp.util.root_pattern("yarn.lock", "lerna.json", ".git"),
+    init_options = {documentFormatting = true, codeAction = true},
+    settings = {
+      rootMarkers = {".git/"},
+      log_level = 1,
+      log_file = '~/efm.log',
+      languages = efm.languages,
+    },
+    filetypes = vim.tbl_keys(efm.languages),
+  }
 }
 
 function M.setup()

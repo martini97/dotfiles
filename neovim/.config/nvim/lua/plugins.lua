@@ -75,4 +75,12 @@ return require("packer").startup(function(use)
       vim.api.nvim_set_keymap("n", "<C-w>o", ":MaximizerToggle<Cr>", { noremap = true })
     end,
   }
+
+  use {
+    "vim-test/vim-test",
+    requires = {"christoomey/vim-tmux-runner"},
+    config = function()
+      vim.g["test#strategy"] = "vtr"
+    end,
+  }
 end)

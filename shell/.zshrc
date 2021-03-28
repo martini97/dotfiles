@@ -3,7 +3,7 @@ if [ ! -d "${ZSH}" ]; then
 fi
 
 ZSH_THEME="robbyrussell"
-plugins=(git ssh-agent)
+plugins=(git ssh-agent autojump)
 
 function source_if_exists() {
   local file=$1

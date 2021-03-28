@@ -16,17 +16,26 @@ local opt = setmetatable({}, {
 })
 
 local function options()
-  opt.termguicolors = true
   opt.number = true
+  opt.cursorline = true
+  opt.termguicolors = true
   opt.relativenumber = true
   opt.colorcolumn = "80"
+  opt.shiftwidth = 2
+  opt.softtabstop = 2
+  opt.tabstop = 2
+  opt.swapfile = false
+  opt.expandtab = true
 
   vim.o.completeopt = "menu,menuone,noselect"
 end
 
 local function providers()
-  vim.g.python_host_prog = ""
   vim.g.loaded_python_provider = 0
+  vim.g.loaded_python3_provider = 0
+  vim.g.loaded_ruby_provider = 0
+  vim.g.loaded_node_provider = 0
+  vim.g.loaded_perl_provider = 0
 end
 
 local function dependencies()
@@ -42,6 +51,33 @@ local function dependencies()
   end
 end
 
+local function keymaps()
+  local mappings = {
+    {"c", "<C-k>", "<Up>", { noremap = true }},
+    {"c", "<C-j>", "<Down>", { noremap = true }},
+    {"c", "<C-a>", "<Home>", { noremap = true }},
+    {"c", "<C-e>", "<End>", { noremap = true }},
+  }
+
+  for _, map in pairs(mappings) do
+    vim.api.nvim_set_keymap(unpack(map))
+  end
+
+  vim.cmd [[
+    cnoreabbrev W! w!
+    cnoreabbrev Q! q!
+    cnoreabbrev Qall! qall!
+    cnoreabbrev Wq wq
+    cnoreabbrev Wa wa
+    cnoreabbrev wQ wq
+    cnoreabbrev WQ wq
+    cnoreabbrev W w
+    cnoreabbrev Q q
+    cnoreabbrev Qall qall
+  ]]
+end
+
 options()
 providers()
 dependencies()
+keymaps()

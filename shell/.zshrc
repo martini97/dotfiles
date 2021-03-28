@@ -16,3 +16,4 @@ function source_if_exists() {
 source_if_exists "${ZSH}/oh-my-zsh.sh"
 source_if_exists "${ZSH_CONFIG_DIR}/aliases.zsh"
 source_if_exists "${ZSH_CONFIG_DIR}/keybinds.zsh"
+source_if_exists "${NVM_DIR}/nvm.sh"

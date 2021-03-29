@@ -26,6 +26,7 @@ local function options()
   opt.tabstop = 2
   opt.swapfile = false
   opt.expandtab = true
+  opt.hidden = true
 
   vim.o.completeopt = "menu,menuone,noselect"
 end

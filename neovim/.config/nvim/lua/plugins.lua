@@ -85,4 +85,9 @@ return require("packer").startup(function(use)
   }
 
   use {"romainl/vim-cool"}
+
+  use {
+    "~/Code/project-config.nvim",
+    requires = {"nvim-lua/plenary.nvim"},
+  }
 end)

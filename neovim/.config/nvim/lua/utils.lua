@@ -24,13 +24,23 @@ function M.nvim_create_augroups(definitions)
     vim.api.nvim_command('autocmd!')
     for _, def in ipairs(definition) do
       -- if type(def) == 'table' and type(def[#def]) == 'function' then
-      -- 	def[#def] = lua_callback(def[#def])
+      --  def[#def] = lua_callback(def[#def])
       -- end
       local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
       vim.api.nvim_command(command)
     end
     vim.api.nvim_command('augroup END')
   end
+end
+
+function M.merge_tables(...)
+  local result = {}
+  for _, t in pairs({...}) do
+    for key, value in pairs(t) do
+      result[key] = value
+    end
+  end
+  return result
 end
 
 return M

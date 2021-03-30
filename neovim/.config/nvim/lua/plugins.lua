@@ -14,6 +14,8 @@ vim.cmd [[packadd packer.nvim]]
 return require("packer").startup(function(use)
   use {"wbthomason/packer.nvim", opt = true}
 
+  use {"tpope/vim-unimpaired"}
+
   use {
     "tpope/vim-fugitive",
     requires = {"tpope/vim-rhubarb"},
@@ -23,7 +25,7 @@ return require("packer").startup(function(use)
   }
 
   use {
-    "sainnhe/sonokai", 
+    "sainnhe/sonokai",
     config = function ()
       vim.g.sonokai_style = 'andromeda'
       vim.g.sonokai_enable_italic = true
@@ -53,9 +55,10 @@ return require("packer").startup(function(use)
   use {
     "neovim/nvim-lspconfig",
     config = function()
+      require("modules.snippets")
       require("modules.lsp").setup()
     end,
-    requires = {"glepnir/lspsaga.nvim", "hrsh7th/nvim-compe"},
+    requires = {"glepnir/lspsaga.nvim", "hrsh7th/nvim-compe", "norcalli/snippets.nvim"},
   }
 
   use {"editorconfig/editorconfig-vim"}

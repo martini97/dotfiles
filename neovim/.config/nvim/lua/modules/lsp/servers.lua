@@ -5,6 +5,22 @@ local saga = require("lspsaga")
 local keymaps = require("modules.lsp.keymaps")
 local efm = require("modules.lsp.efm")
 
+local function sumneko_cmd ()
+  local system_name = ''
+  if vim.fn.has("mac") == 1 then
+    system_name = "macOS"
+  elseif vim.fn.has("unix") == 1 then
+    system_name = "Linux"
+  elseif vim.fn.has('win32') == 1 then
+    system_name = "Windows"
+  end
+
+  if not system_name then return {} end
+
+  local root = vim.fn.expand('~/Code/lua-language-server')
+  local binary = root ..  '/bin/' .. system_name .. '/lua-language-server'
+  return {binary, "-E", root .. "/main.lua"}
+end
 
 local function make_on_attach(config)
   return function (client, bufnr)
@@ -55,6 +71,30 @@ local servers = {
       languages = efm.languages,
     },
     filetypes = vim.tbl_keys(efm.languages),
+  },
+  sumneko_lua = {
+    cmd = sumneko_cmd(),
+    settings = {
+      Lua = {
+        runtime = {
+          version = 'LuaJIT',
+          path = vim.split(package.path, ';'),
+        },
+        diagnostics = {
+          enable = true,
+          globals = {"vim", "describe", "it", "before_each", "after_each"},
+        },
+        workspace = {
+          library = {
+            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+          },
+        },
+        telemetry = {
+          enable = false,
+        },
+      },
+    },
   }
 }
 

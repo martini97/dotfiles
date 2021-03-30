@@ -10,6 +10,10 @@
   rbi = !sh -c \"git rebase -i `git merge-base origin/master HEAD`\" -
   st = status
   dc = diff --cached
+  cb = checkout -b
+  cm = commit
+  cma = commit --amend
+  cmm = commit -m
 
 [push]
   default = current

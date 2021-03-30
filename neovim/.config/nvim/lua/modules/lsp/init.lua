@@ -2,13 +2,13 @@ local M = {}
 
 local completion = require("modules.lsp.completion")
 local servers = require("modules.lsp.servers")
-local loclist = require("modules.lsp.loclist")
+-- local loclist = require("modules.lsp.loclist")
 local fix_tab = require("modules.lsp.fix_tab")
 
 function M.setup()
   completion.setup()
   servers.setup()
-  loclist.setup()
+  -- loclist.setup()
   fix_tab.setup()
 
   vim.cmd [[

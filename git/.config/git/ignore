@@ -2,3 +2,5 @@
 /.nvimrc
 /tags
 .vim
+.envrc
+ecosystem.config.yaml

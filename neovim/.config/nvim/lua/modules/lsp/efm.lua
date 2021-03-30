@@ -31,7 +31,7 @@ M.languages = {
   javascriptreact = {eslint},
   typescript = {eslint},
   typescriptreact = {eslint},
-  python = {black, isort, flake8, mypy},
+  python = {black, isort, flake8},
 }
 
 return M

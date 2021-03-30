@@ -90,4 +90,11 @@ return require("packer").startup(function(use)
     "~/Code/project-config.nvim",
     requires = {"nvim-lua/plenary.nvim"},
   }
+
+  use {
+    "windwp/nvim-autopairs",
+    config = function ()
+      require('modules.autopairs').setup()
+    end,
+  }
 end)

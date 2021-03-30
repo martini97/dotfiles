@@ -1,7 +1,7 @@
 local M = {}
 
-require("telescope").setup{ defaults = {shorten_path = false} }
-require("telescope").load_extension("fzy_native")
+local telescope = require('telescope')
+local actions = require('telescope.actions')
 
 local opts = {noremap = true}
 local mappings = {
@@ -32,6 +32,18 @@ local mappings = {
 }
 
 function M.setup()
+  telescope.setup({
+    defaults = {
+      shorten_path = false,
+      mappings = {
+        i = {
+          ["<C-q>"] = actions.send_to_qflist,
+        },
+      },
+    },
+  })
+  telescope.load_extension("fzy_native")
+
   for _, map in pairs(mappings) do
     vim.api.nvim_set_keymap(unpack(map))
   end

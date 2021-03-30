@@ -17,3 +17,7 @@ source_if_exists "${ZSH}/oh-my-zsh.sh"
 source_if_exists "${ZSH_CONFIG_DIR}/aliases.zsh"
 source_if_exists "${ZSH_CONFIG_DIR}/keybinds.zsh"
 source_if_exists "${NVM_DIR}/nvm.sh"
+
+if command -v direnv &> /dev/null; then
+  eval "$(direnv hook zsh)"
+fi

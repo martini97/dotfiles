@@ -15,3 +15,5 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 export ZSH="${HOME}/.oh-my-zsh"
 export ZSH_CONFIG_DIR="${XDG_CONFIG_HOME}/zsh"
 export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
+
+export EDITOR=nvim

@@ -1,3 +1,5 @@
+require('astronauta.keymap')
+
 P = function(v)
   print(vim.inspect(v))
   return v
@@ -11,5 +13,7 @@ if pcall(require, 'plenary') then
     return require(name)
   end
 end
+
+_G.martini97 = {}
 
 require('martini97.globals.opt')

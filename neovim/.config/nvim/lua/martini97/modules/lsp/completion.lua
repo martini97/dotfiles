@@ -1,6 +1,23 @@
 local M = {}
 
 local compe = require("compe")
+local autopairs = require('nvim-autopairs')
+
+function _G.martini97.completion_confirm ()
+  if vim.fn.pumvisible() ~= 0  then
+    if vim.fn.complete_info()["selected"] ~= -1 then
+      vim.fn["compe#confirm"]()
+      return autopairs.esc("<c-y>")
+    else
+      vim.defer_fn(function()
+        vim.fn["compe#confirm"]("<cr>")
+      end, 20)
+      return autopairs.esc("<c-n>")
+    end
+  else
+    return autopairs.check_break_line_char()
+  end
+end
 
 function M.setup()
   compe.setup {
@@ -27,15 +44,15 @@ function M.setup()
     },
   }
 
-  vim.api.nvim_set_keymap(
-    "i", "<C-Space>", "compe#complete()",
-    {expr = true, silent = true, noremap = true}
-  )
+  autopairs.setup()
 
-  vim.api.nvim_set_keymap(
-    "i", "<CR>", "compe#confirm('<CR>')",
-    {expr = true, silent = true, noremap = true}
-  )
+  vim.keymap.inoremap {"<c-space>", vim.fn["compe#complete"], silent = true}
+  vim.keymap.inoremap {
+    "<cr>",
+    "v:lua.martini97.completion_confirm()",
+    silent = false,
+    expr = true,
+  }
 end
 
 return M

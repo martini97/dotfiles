@@ -14,6 +14,10 @@ vim.cmd [[packadd packer.nvim]]
 return require("packer").startup(function(use)
   use {"wbthomason/packer.nvim", opt = true}
 
+  use {"tjdevries/astronauta.nvim", config = function ()
+    require('astronauta.keymap')
+  end}
+
   use {"tpope/vim-unimpaired"}
 
   use {
@@ -58,7 +62,12 @@ return require("packer").startup(function(use)
       require("martini97.modules.snippets")
       require("martini97.modules.lsp").setup()
     end,
-    requires = {"glepnir/lspsaga.nvim", "hrsh7th/nvim-compe", "norcalli/snippets.nvim"},
+    requires = {
+      "glepnir/lspsaga.nvim",      -- better ui for lsp
+      "hrsh7th/nvim-compe",        -- autocompletion
+      "norcalli/snippets.nvim",    -- snippets handler
+      "windwp/nvim-autopairs",     -- autopairing
+    },
   }
 
   use {"editorconfig/editorconfig-vim"}
@@ -92,13 +101,6 @@ return require("packer").startup(function(use)
   use {
     "~/Code/project-config.nvim",
     requires = {"nvim-lua/plenary.nvim"},
-  }
-
-  use {
-    "windwp/nvim-autopairs",
-    config = function ()
-      require('martini97.modules.autopairs').setup()
-    end,
   }
 
   use {"kyazdani42/nvim-tree.lua"}

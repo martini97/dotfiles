@@ -19,7 +19,9 @@ local js_snippets = {
   useS = snp_utils.match_indentation [[const [$1, ${2:${1|React_use_state_setter(S.v)}}] = useState($3)]],
 }
 
-local jsx_snippets = {}
+local jsx_snippets = {
+  ir = [[import React from 'react']],
+}
 
 local ts_snippets = {}
 
@@ -31,6 +33,7 @@ snippets.snippets = {
     now = snp_utils.force_comment("${=os.date()}"),
   },
   lua = {
+    pdb = snp_utils.match_indentation [[require'plenary.path':new('debug.txt'):write('test\n', 'a')]],
     req = snp_utils.match_indentation [[local ${2:${1|S.v:match"([^.()]+)[()]*$"}} = require '$1']];
     fun = snp_utils.match_indentation [[
 function${1|vim.trim(S.v):gsub("^%S"," %0")}(${2|vim.trim(S.v)})

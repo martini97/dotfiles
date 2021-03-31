@@ -97,16 +97,16 @@ local servers = {
   }
 }
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-
 function M.setup()
   for server, config in pairs(servers) do
     if not config.on_attach then
       config.on_attach = make_on_attach(config)
     end
+
+    local capabilities = vim.lsp.protocol.make_client_capabilities(nvim_lsp[server])
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
     config.capabilities = capabilities
+
     nvim_lsp[server].setup(config)
   end
 end

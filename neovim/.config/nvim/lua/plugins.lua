@@ -100,4 +100,6 @@ return require("packer").startup(function(use)
       require('modules.autopairs').setup()
     end,
   }
+
+  use {"kyazdani42/nvim-tree.lua"}
 end)

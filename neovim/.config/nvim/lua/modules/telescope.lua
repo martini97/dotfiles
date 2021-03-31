@@ -29,6 +29,12 @@ local mappings = {
     [[<Cmd>lua require("telescope.builtin").buffers()<CR>]],
     opts
   },
+  {
+    "n",
+    "<space>f.",
+    [[<Cmd>lua require'telescope.builtin'.git_files({ cwd = "~/Code/dotfiles" })<CR>]],
+    opts
+  },
 }
 
 function M.setup()
@@ -37,7 +43,10 @@ function M.setup()
       shorten_path = false,
       mappings = {
         i = {
-          ["<C-q>"] = actions.send_to_qflist,
+          ["<Esc>"] = actions.close,
+          ["<C-q>"] = actions.smart_send_to_qflist,
+          ["<C-k>"] = actions.move_selection_previous,
+          ["<C-j>"] = actions.move_selection_next,
         },
       },
     },

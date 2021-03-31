@@ -1,8 +1,8 @@
 local M = {}
 
 local nvim_lsp = require("lspconfig")
-local keymaps = require("modules.lsp.keymaps")
-local efm = require("modules.lsp.efm")
+local keymaps = require("martini97.modules.lsp.keymaps")
+local efm = require("martini97.modules.lsp.efm")
 
 local function sumneko_cmd ()
   local system_name = ''

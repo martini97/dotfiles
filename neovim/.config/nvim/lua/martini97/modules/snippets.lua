@@ -1,6 +1,6 @@
 local snp_utils = require("snippets.utils")
 local snippets = require("snippets")
-local utils = require('utils')
+local utils = require('martini97.utils')
 
 snippets.use_suggested_mappings()
 snippets.set_ux(require("snippets.inserters.vim_input"))

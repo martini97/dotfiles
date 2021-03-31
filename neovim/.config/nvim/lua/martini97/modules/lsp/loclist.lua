@@ -1,7 +1,7 @@
 -- based on https://gist.github.com/phelipetls/0aeb9f4aca9af25d9f45ee56e0c5a340
 local M = {}
 
-local utils = require('utils')
+local utils = require('martini97.utils')
 
 local severity_map = { "E", "W", "I", "H" }
 

@@ -20,7 +20,7 @@ return require("packer").startup(function(use)
     "tpope/vim-fugitive",
     requires = {"tpope/vim-rhubarb"},
     config = function ()
-      require('modules.git').setup()
+      require('martini97.modules.git').setup()
     end,
   }
 
@@ -41,22 +41,22 @@ return require("packer").startup(function(use)
       {'nvim-telescope/telescope-fzy-native.nvim'},
     },
     config = function ()
-      require('modules.telescope').setup()
+      require('martini97.modules.telescope').setup()
     end,
   }
 
   use {
     "nvim-treesitter/nvim-treesitter",
     config = function()
-      require("modules.treesitter").setup()
+      require("martini97.modules.treesitter").setup()
     end,
   }
 
   use {
     "neovim/nvim-lspconfig",
     config = function()
-      require("modules.snippets")
-      require("modules.lsp").setup()
+      require("martini97.modules.snippets")
+      require("martini97.modules.lsp").setup()
     end,
     requires = {"glepnir/lspsaga.nvim", "hrsh7th/nvim-compe", "norcalli/snippets.nvim"},
   }
@@ -66,7 +66,7 @@ return require("packer").startup(function(use)
   use {
     'hoob3rt/lualine.nvim',
     config = function()
-      require('modules.statusline').setup()
+      require('martini97.modules.statusline').setup()
     end,
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
@@ -83,7 +83,7 @@ return require("packer").startup(function(use)
     "vim-test/vim-test",
     requires = {"christoomey/vim-tmux-runner"},
     config = function()
-      require("modules.test").setup()
+      require("martini97.modules.test").setup()
     end,
   }
 
@@ -97,7 +97,7 @@ return require("packer").startup(function(use)
   use {
     "windwp/nvim-autopairs",
     config = function ()
-      require('modules.autopairs').setup()
+      require('martini97.modules.autopairs').setup()
     end,
   }
 

@@ -1,17 +1,5 @@
 local utils = require('martini97.utils')
-
-local function dependencies()
-  local dependencies_dir = vim.fn.stdpath('config') .. '/dependencies'
-  local node_deps = dependencies_dir .. '/node/node_modules/.bin'
-  local py_deps = dependencies_dir .. '/python/venv/bin'
-  local deps = { node_deps, py_deps }
-
-  for _, dep in ipairs(deps) do
-    if utils.isdir(node_deps) then
-      vim.env.PATH = dep .. ':' .. vim.env.PATH
-    end
-  end
-end
+local Path = require 'plenary.path'
 
 vim.opt.number = true
 vim.opt.cursorline = true
@@ -37,6 +25,10 @@ vim.opt.formatoptions = vim.opt.formatoptions
                     + 'j'     -- Auto-remove comments if possible.
                     - '2'     -- I'm not in gradeschool anymore
 vim.opt.fillchars = { eob = "~" }
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.incsearch = true
+vim.opt.inccommand = 'nosplit'
 
 vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0
@@ -44,31 +36,29 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 
-local function keymaps()
-  local mappings = {
-    {"c", "<C-k>", "<Up>", { noremap = true }},
-    {"c", "<C-j>", "<Down>", { noremap = true }},
-    {"c", "<C-a>", "<Home>", { noremap = true }},
-    {"c", "<C-e>", "<End>", { noremap = true }},
-  }
-
-  for _, map in pairs(mappings) do
-    vim.api.nvim_set_keymap(unpack(map))
-  end
-
-  vim.cmd [[
-    cnoreabbrev W! w!
-    cnoreabbrev Q! q!
-    cnoreabbrev Qall! qall!
-    cnoreabbrev Wq wq
-    cnoreabbrev Wa wa
-    cnoreabbrev wQ wq
-    cnoreabbrev WQ wq
-    cnoreabbrev W w
-    cnoreabbrev Q q
-    cnoreabbrev Qall qall
-  ]]
+if vim.fn.executable("rg") == 1 then
+  vim.o.grepprg = "rg --vimgrep --no-column --smart-case --color=never"
 end
+
+vim.keymap.cnoremap {"<c-k>", "<up>"}
+vim.keymap.cnoremap {"<c-j>", "<down>"}
+vim.keymap.cnoremap {"<c-a>", "<home>"}
+vim.keymap.cnoremap {"<c-e>", "<end>"}
+vim.keymap.nnoremap {"<a-d>", [[:Lspsaga open_floaterm<CR>]]}
+vim.keymap.tnoremap {"<a-d>", [[<C-\><C-n>:Lspsaga close_floaterm<CR>]]}
+
+vim.cmd [[
+  cnoreabbrev W! w!
+  cnoreabbrev Q! q!
+  cnoreabbrev Qall! qall!
+  cnoreabbrev Wq wq
+  cnoreabbrev Wa wa
+  cnoreabbrev wQ wq
+  cnoreabbrev WQ wq
+  cnoreabbrev W w
+  cnoreabbrev Q q
+  cnoreabbrev Qall qall
+]]
 
 local autocmds = {
   highlight_yank = {
@@ -76,8 +66,15 @@ local autocmds = {
   }
 }
 
+local dependencies_dir = vim.fn.stdpath('config') .. '/dependencies'
+local node_deps = dependencies_dir .. '/node/node_modules/.bin'
+local py_deps = dependencies_dir .. '/python/venv/bin'
+local deps = { node_deps, py_deps }
 
-dependencies()
-keymaps()
+for _, dep in ipairs(deps) do
+  if Path:new(node_deps):is_dir() then
+    vim.env.PATH = dep .. ':' .. vim.env.PATH
+  end
+end
 
 utils.nvim_create_augroups(autocmds)

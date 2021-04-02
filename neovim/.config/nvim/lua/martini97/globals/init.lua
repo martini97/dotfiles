@@ -14,6 +14,13 @@ if pcall(require, 'plenary') then
   end
 end
 
+RLSP = function()
+  vim.schedule_wrap(function()
+    vim.lsp.stop_client(vim.lsp.get_active_clients())
+    vim.api.nvim_command("edit")
+  end)
+end
+
 _G.martini97 = {}
 
 require('martini97.globals.opt')

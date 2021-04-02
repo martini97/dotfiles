@@ -14,9 +14,34 @@ function React_use_state_setter(string)
   return 'set' .. string
 end
 
+function Jest_as_mocked(string)
+  string = string:gsub("^%l", string.upper)
+  return 'mocked' .. string
+end
+
 local js_snippets = {
   clv = snp_utils.match_indentation [[console.log('$1: ', $1)]],
   useS = snp_utils.match_indentation [[const [$1, ${2:${1|React_use_state_setter(S.v)}}] = useState($3)]],
+  desc = snp_utils.match_indentation [[
+describe('$1', () => {
+  $0
+})]],
+  it = snp_utils.match_indentation [[
+it('$1', ${2:async}() => {
+  $0
+})]],
+  mock = snp_utils.match_indentation [[
+jest.mock('$1', () => ({
+  __esModule: true,
+  $2: jest.fn(),
+}))]],
+  asmocked = snp_utils.match_indentation [[
+const ${2:${1|Jest_as_mocked(S.v)}} = $1 as jest.MockedFunction<typeof $1>
+]],
+  actimmediate = snp_utils.match_indentation [[
+await act(async () => {
+  await new Promise((r) => setImmediate(r))
+})]]
 }
 
 local jsx_snippets = {
@@ -29,7 +54,7 @@ local tsx_snippets = {}
 
 snippets.snippets = {
   _global = {
-    todo = snp_utils.force_comment("TODO:"),
+    todo = snp_utils.force_comment("TODO(martini97, ${=os.date('%Y-%m-%d')}): "),
     now = snp_utils.force_comment("${=os.date()}"),
   },
   lua = {

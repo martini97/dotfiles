@@ -17,3 +17,5 @@ export ZSH_CONFIG_DIR="${XDG_CONFIG_HOME}/zsh"
 export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 
 export EDITOR=nvim
+
+[ -f "${XDG_CONFIG_HOME}/zsh/private.zshenv" ] && source "${XDG_CONFIG_HOME}/zsh/private.zshenv" || true

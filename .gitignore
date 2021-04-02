@@ -1,3 +1,4 @@
+private.zshenv
 node_modules
 yarn-error.log
 neovim/.config/nvim/plugin

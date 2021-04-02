@@ -4,7 +4,7 @@ OS_NAME := $(shell uname -s | tr A-Z a-z)
 .PHONY: help
 
 dotfiles: ## Install dotfiles with stow (creates symlinks)
-	@stow --target=${HOME} kitty git shell neovim tmux ripgrep
+	@stow --target=${HOME} kitty git shell neovim tmux ripgrep ctags
 
 dependencies: ## Install os dependencies (WIP)
 	@./_scripts/$(OS_NAME)-dependencies.sh

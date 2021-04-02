@@ -1,6 +1,8 @@
 /.venv
 /.nvimrc
 /tags
+/.tasks.ini
+/.tasks
 .vim
 .envrc
 ecosystem.config.yaml

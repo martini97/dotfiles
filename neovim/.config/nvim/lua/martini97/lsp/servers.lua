@@ -30,12 +30,20 @@ local black = {
   formatStdin = true
 }
 
+local luacheck = {
+  lintCommand = "lua-check --globals vim --filename ${INPUT} -",
+  lintStdin = true,
+  lintIgnoreExitCode = true,
+  lintFormats = {"%f:%l:%c: %m"},
+}
+
 efm.languages = {
   javascript = {eslint},
   javascriptreact = {eslint},
   typescript = {eslint},
   typescriptreact = {eslint},
   python = {black, isort, flake8},
+  lua = {luacheck},
 }
 
 local function sumneko_cmd ()

@@ -29,6 +29,8 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.incsearch = true
 vim.opt.inccommand = 'nosplit'
+vim.opt.list = true
+vim.opt.listchars = { trail = "·", tab = "»·", eol = "↲" }
 
 vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0

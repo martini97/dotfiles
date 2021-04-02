@@ -49,6 +49,9 @@ vim.keymap.cnoremap {"<c-e>", "<end>"}
 vim.keymap.nnoremap {"<a-d>", [[:Lspsaga open_floaterm<CR>]]}
 vim.keymap.tnoremap {"<a-d>", [[<C-\><C-n>:Lspsaga close_floaterm<CR>]]}
 
+-- TODO(martini97, 2021-04-02): try out how this feel
+vim.keymap.nnoremap {"<a-f>", "<c-^>"}
+
 vim.cmd [[
   cnoreabbrev W! w!
   cnoreabbrev Q! q!

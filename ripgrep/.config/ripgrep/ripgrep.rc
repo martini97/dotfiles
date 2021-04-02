@@ -1,0 +1,13 @@
+--smart-case
+
+--max-columns=150
+--max-columns-preview
+
+--type-add
+web:*.{html,css,js}*
+
+--type-add
+react:*.{ts,tsx,js,jsx}
+
+--glob
+!git/*

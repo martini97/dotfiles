@@ -51,7 +51,7 @@ function utils.asyncgrep(search, opts)
     local grepprg = vim.o.grepprg
     if not grepprg then return end
 
-    local cmd = vim.fn.expandcmd(vim.o.grepprg)
+    local cmd = vim.fn.expandcmd(grepprg)
 
     if opts.full_word and string.match(grepprg, "^[ra]g%s") then
         cmd = cmd .. " --word-regexp"

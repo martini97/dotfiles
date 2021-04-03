@@ -22,5 +22,6 @@ RLSP = function()
 end
 
 _G.martini97 = {}
+LOG = require "martini97.log"
 
 require('martini97.globals.opt')

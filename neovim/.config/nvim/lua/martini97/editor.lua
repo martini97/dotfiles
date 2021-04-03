@@ -82,4 +82,6 @@ for _, dep in ipairs(deps) do
   end
 end
 
+vim.opt.foldenable = false
+
 utils.nvim_create_augroups(autocmds)

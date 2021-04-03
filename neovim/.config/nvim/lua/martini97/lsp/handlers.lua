@@ -30,6 +30,13 @@ handlers["textDocument/formatting"] = function(default_handler)
     end
 end
 
+-- disable virtual text
+handlers["textDocument/publishDiagnostics"] =
+    function(_)
+        return vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics,
+                            {virtual_text = false})
+    end
+
 function M.setup()
     for key, value in pairs(handlers) do
         local default_handler = vim.lsp.handlers[key]

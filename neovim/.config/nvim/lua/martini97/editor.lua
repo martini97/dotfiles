@@ -67,7 +67,7 @@ vim.cmd [[
 
 local autocmds = {
   highlight_yank = {
-    {"TextYankPost", "*", [[lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}]]}
+    {"TextYankPost", "*", [[lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}]]},
   }
 }
 

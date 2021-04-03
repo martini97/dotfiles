@@ -23,7 +23,8 @@ end
 
 handlers["textDocument/formatting"] = function(default_handler)
     return function(_, method, result)
-        if result ~= nil then return default_handler(nil, method, result) end
+        local has_result = result ~= nil and not vim.tbl_isempty(result)
+        if has_result then return default_handler(nil, method, result) end
 
         utils.asyncformat()
     end

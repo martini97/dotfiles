@@ -6,3 +6,4 @@
 .vim
 .envrc
 ecosystem.config.yaml
+pyrightconfig.json

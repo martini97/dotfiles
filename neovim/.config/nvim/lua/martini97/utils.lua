@@ -113,7 +113,7 @@ end
 function utils.asyncformat()
     local formatprg = ""
     local view = vim.fn.winsaveview()
-
+    LOG.debug("view:", view)
     local has_opt = function(ns, opt)
         return not utils.isempty(utils.safe_get_option(ns, opt))
     end
@@ -124,15 +124,23 @@ function utils.asyncformat()
         formatprg = vim.o.formatprg
     end
 
+    LOG.debug("formatprg:", formatprg)
+
     if utils.isempty(formatprg) then
+        LOG.debug("gg=G")
         vim.api.nvim_feedkeys("gg=G", "n", true)
     else
+        LOG.debug([[execute '%!]] .. formatprg .. [[']])
         vim.cmd([[execute '%!]] .. formatprg .. [[']])
         -- TODO(martini97, 2021-04-02): figure out why this won't work
         -- vim.api.nvim_feedkeys('gggqG', 'n', true)
     end
 
+    LOG.debug("``")
+
     vim.api.nvim_feedkeys("``", "n", true)
+
+    LOG.debug("winrestview")
     vim.fn.winrestview(view)
 end
 

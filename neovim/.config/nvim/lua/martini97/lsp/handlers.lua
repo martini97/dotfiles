@@ -1,6 +1,6 @@
 local M = {}
 local handlers = {}
-local utils = require 'martini97.utils'
+local utils = require "martini97.utils"
 
 handlers["textDocument/definition"] = function(default_handler)
     return function(_, method, result)
@@ -31,11 +31,14 @@ handlers["textDocument/formatting"] = function(default_handler)
 end
 
 -- disable virtual text
-handlers["textDocument/publishDiagnostics"] =
+--[[ handlers["textDocument/publishDiagnostics"] =
     function(_)
-        return vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics,
-                            {virtual_text = false})
-    end
+        return vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+            virtual_text = false,
+            update_in_insert = true,
+            signs = false
+        })
+    end ]]
 
 function M.setup()
     for key, value in pairs(handlers) do

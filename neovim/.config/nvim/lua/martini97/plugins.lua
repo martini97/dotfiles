@@ -58,6 +58,7 @@ return require("packer").startup(function(use)
             require("martini97.lsp").setup()
         end,
         requires = {
+            -- "~/Code/lspsaga.nvim", -- better ui for lsp
             "glepnir/lspsaga.nvim", -- better ui for lsp
             "hrsh7th/nvim-compe", -- autocompletion
             "norcalli/snippets.nvim", -- snippets handler
@@ -108,8 +109,13 @@ return require("packer").startup(function(use)
                 require("telescope").extensions.asynctasks.all()
             end
 
+            local function pick_project()
+                require("telescope").extensions.projectile.all()
+            end
+
             vim.g.asyncrun_open = 6
             vim.keymap.nnoremap {"<space>pt", pick_tasks}
+            vim.keymap.nnoremap {"<space>pp", pick_project}
         end
     }
 end)

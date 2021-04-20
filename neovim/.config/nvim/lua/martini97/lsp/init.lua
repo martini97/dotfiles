@@ -13,6 +13,10 @@ function M.setup()
   fix_tab.setup()
 
   saga.init_lsp_saga({
+    code_action_prompt = {
+      enable = false,
+      virtual_text = false,
+    },
     finder_action_keys = {
       open = '<cr>',
       vsplit = 's',

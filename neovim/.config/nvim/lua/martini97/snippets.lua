@@ -53,7 +53,8 @@ snippets.snippets = {
         todo = snp_utils.force_comment(
             "TODO(martini97, ${=os.date('%Y-%m-%d')}): "),
         now = snp_utils.force_comment("${=os.date()}"),
-        bang = snp_utils.force_comment [[#!/usr/bin/env ${1:bash}]]
+        bang = snp_utils.force_comment [[#!/usr/bin/env ${1:bash}]],
+        date = "${=os.date('%Y-%m-%d')}",
     },
     lua = {
         pdb = snp_utils.match_indentation [[require'plenary.path':new('debug.txt'):write('test\n', 'a')]],

@@ -3,6 +3,7 @@ path=(
   "$HOME/.local/bin"
   "$HOME/neovim/bin"
   "$HOME/.cargo/bin"
+  "$HOME/Library/Python/3.9/bin"
   "$path[@]"
 )
 export PATH

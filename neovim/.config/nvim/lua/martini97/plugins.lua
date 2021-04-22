@@ -118,4 +118,6 @@ return require("packer").startup(function(use)
             vim.keymap.nnoremap {"<space>pp", pick_project}
         end
     }
+
+  use {"mhinz/vim-startify"}
 end)

@@ -127,4 +127,21 @@ return require("packer").startup(function(use)
     "tjdevries/colorbuddy.nvim",
     config = function() require("colorbuddy").setup() end,
   }
+
+  use {
+    "cormacrelf/dark-notify",
+    config = function()
+      local dn = require("dark_notify")
+      local colorscheme_utils = require('martini97.colorscheme')
+      local colors = {
+        dark = "base16-onedark";
+        light = "base16-one-light";
+      }
+      dn.run({
+        onchange = function(mode)
+          colorscheme_utils.set_colorscheme(colors[mode])
+        end,
+      })
+    end,
+  }
 end)

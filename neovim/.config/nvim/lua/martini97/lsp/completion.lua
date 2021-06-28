@@ -15,14 +15,13 @@ function M.setup()
     max_abbr_width = 100,
     max_kind_width = 100,
     max_menu_width = 100,
+    documentation = true,
 
     source = {
       path = true,
-      buffer = true,
-      calc = true,
       nvim_lsp = true,
       nvim_lua = true,
-      spell = true,
+      buffer = true,
       snippets_nvim = true,
     },
   }
